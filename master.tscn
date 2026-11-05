@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://cfbbveeds6b33"]
+
+[ext_resource type="Script" uid="uid://dbjxea5bm8ihx" path="res://Player.cs" id="1_te040"]
+[ext_resource type="Texture2D" uid="uid://biqt05g010kok" path="res://Sprites/Player.png" id="2_s35ub"]
+
+[sub_resource type="Gradient" id="Gradient_te040"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.26234567, 0.9907407)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8h1ww"]
+radius = 5.0
+height = 10.0
+
+[node name="Master" type="Node" unique_id=866064082]
+
+[node name="Player" type="RigidBody2D" parent="." unique_id=1307166405 node_paths=PackedStringArray("fuelBar", "thrustParticles", "rigidBody2D")]
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 1.0
+script = ExtResource("1_te040")
+speed = 50
+rotationTorque = 50
+idleLoss = 0.5
+activeLoss = 5.0
+fuelBar = NodePath("../CanvasLayer/ProgressBar")
+thrustParticles = NodePath("Thrust")
+rigidBody2D = NodePath(".")
+
+[node name="Stars" type="CPUParticles2D" parent="Player" unique_id=1223049838]
+amount = 100
+lifetime = 15.0
+preprocess = 10.0
+randomness = 0.05
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 70.11
+spread = 118.07
+gravity = Vector2(0, 0)
+scale_amount_min = 0.0
+color_ramp = SubResource("Gradient_te040")
+anim_speed_max = 30.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=524354823]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_s35ub")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=407832812]
+zoom = Vector2(15, 15)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1317523917]
+shape = SubResource("CapsuleShape2D_8h1ww")
+
+[node name="Thrust" type="CPUParticles2D" parent="Player" unique_id=332024804]
+position = Vector2(-5, 0)
+scale = Vector2(5.0400004, 4.9599986)
+emitting = false
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector2(-1, 0)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 5.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1977087603]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=995923795]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=1521559082]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 10.0
+show_percentage = false
