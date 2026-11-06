@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbjxea5bm8ihx" path="res://Player.cs" id="1_te040"]
 [ext_resource type="Texture2D" uid="uid://biqt05g010kok" path="res://Sprites/Player.png" id="2_s35ub"]
+[ext_resource type="AudioStream" uid="uid://pbrj5wc7j7fl" path="res://Audio/thrust.wav" id="3_h2bm4"]
 
 [sub_resource type="Gradient" id="Gradient_te040"]
 interpolation_mode = 2
@@ -14,7 +15,7 @@ height = 10.0
 
 [node name="Master" type="Node" unique_id=866064082]
 
-[node name="Player" type="RigidBody2D" parent="." unique_id=1307166405 node_paths=PackedStringArray("fuelBar", "thrustParticles", "rigidBody2D")]
+[node name="Player" type="RigidBody2D" parent="." unique_id=1307166405 node_paths=PackedStringArray("fuelBar", "thrustParticles", "thrustSoundEffect", "rigidBody2D")]
 gravity_scale = 0.0
 linear_damp = 2.0
 angular_damp = 1.0
@@ -25,6 +26,7 @@ idleLoss = 0.5
 activeLoss = 5.0
 fuelBar = NodePath("../CanvasLayer/ProgressBar")
 thrustParticles = NodePath("Thrust")
+thrustSoundEffect = NodePath("AudioStreamPlayer2D")
 rigidBody2D = NodePath(".")
 
 [node name="Stars" type="CPUParticles2D" parent="Player" unique_id=1223049838]
@@ -68,6 +70,9 @@ spread = 20.0
 gravity = Vector2(0, 0)
 initial_velocity_max = 5.0
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player" unique_id=2138904121]
+stream = ExtResource("3_h2bm4")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1977087603]
 layer = -1
 
@@ -89,3 +94,8 @@ grow_horizontal = 2
 grow_vertical = 0
 value = 10.0
 show_percentage = false
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=132456607]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Warp"
